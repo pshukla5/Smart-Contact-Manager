@@ -43,4 +43,23 @@ public class PageController {
         return "flowbite";
     }
 
+    // About
+
+    @RequestMapping("/about")
+    public String about(Model model){
+        
+        model.addAttribute("isLogin", false);
+        System.out.println("About page loading");
+        return "about";
+    }
+
+    // Services
+
+    @RequestMapping("/services")
+    public String services(){
+        
+        System.out.println("Services page loading");
+        return "services";
+    }
+    
 }

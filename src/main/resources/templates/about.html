@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is about page</h1>
+
+    <!-- Using fragment -->
+    <h1>Using insert</h1>
+    <div th:insert = "~{base::parent}"> </div>  <!-- Using insert fragment -->
+
+    <h1>Using replace</h1>
+    <div th:replace = "~{base::parent}"> </div> <!-- Using replace fragment -->
+
+    <h1>Using Variable as parameter</h1>
+    <div th:replace = "~{base::parent_var('About_One','About_Two')}"></div> <!-- Using replace fragment with variable as parameter -->
+
+    <h1>Using Markup as parameter</h1>
+    <div th:replace = "~{base::parent_markup(~{::p})}">  <!-- Using replace fragment with markup as parameter -->
+
+        <p>This is dynamic paragraph<p>
+
+    </div>
+
+    <h1>Using Markup as parameter</h1>
+    <div th:replace = "~{base::parent_markup(~{::section})}">  <!-- Using replace fragment with markup as parameter -->
+
+        <section>
+            
+            <h1>This is dynamic section</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <button>
+                Click on dynamic content
+            </button>
+
+        </section>
+
+    </div>
+
+    <h1>Using Markup as parameter</h1>
+    <div th:replace = "~{base::parent_markup(~{::#section_content})}">  <!-- Using replace fragment with markup as parameter -->
+
+        <section id="section_content">
+            
+            <h1>This is dynamic section called with section id</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <button>
+                Click on dynamic content
+            </button>
+
+        </section>
+
+    </div>
+
+    <h1>Using Markup as parameter</h1>
+    <div th:replace = "~{base::parent_markup(~{::#second_section_content})}">  <!-- Using replace fragment with markup as parameter -->
+
+        <section id="second_section_content">
+            
+            <h1>This is dynamic second section called with section id</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <button>
+                Click on dynamic content
+            </button>
+
+        </section>
+
+    </div>
+
+    <h1>Using Markup as parameter</h1>
+    <div th:replace = "~{base::parent_markup(~{::.third_section_content})}">  <!-- Using replace fragment with markup as parameter -->
+
+        <section class="third_section_content">
+            
+            <h1>This is dynamic third section called with class name</h1>
+            <p>Lorem ipsum dolor sit amet.</p>
+            <button>
+                Click on dynamic content
+            </button>
+
+        </section>
+
+    </div>
+
+<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- We can also use ternary operator while calling fragments -->
+
+    <div th:replace = "${isLogin} ? ~{base::parent} : ~{base::test}">
+
+    </div>
+
+
+</body>
+</html>
+
