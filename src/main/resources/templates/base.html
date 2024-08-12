@@ -1,28 +1,38 @@
-<div th:fragment = "parent">
+<!DOCTYPE html>
+<html lang="en" th:fragment="parent(content,title,script)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">SCM</title>
+    <link rel="stylesheet" data-th-href="@{'/css/output.css'}" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Common Header -->
+    <ul class="p-4">
+        <li>
+            <a th:href="@{'/home'}">Home</a>
+        </li>
+        <li>
+            <a th:href="@{'/services'}">Services</a>
+        </li>
+        <li>
+            <a th:href="@{'/about'}">About</a>
+        </li>
+    </ul>
 
-    <h1>This is parent fragment with no parameters</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, nihil.</p>
+    <!-- Main Content -->
+    <div class="p-4">
+        <section th:replace="${content}"></section>
+    </div>
+    <!-- Common Footer -->
 
-</div>
+    <footer class="p-4">
+        Footer: This is common footer.
+    </footer>
 
-<div th:fragment = "parent_var(x,y)">
-
-    <h1>This is parent fragment for variable as parameter</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, nihil.</p>
-    <h1>value of x is <span th:text = ${x}></span></h1>
-    <h1>value of y is <span th:text = ${y}></span></h1>
-
-</div>
-
-<div th:fragment = "parent_markup(content)">
-
-    <h1>This is parent fragment for markup as parameter</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, nihil.</p>
-    <div th:replace = "${content}"></div>
-</div>
-
-<div th:fragment = "test">
-    
-    <h1>This is test fragment with no parameters</h1>
-
-</div>
+    <!-- Flow Bite Content -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <th:block th:replace="${script}"></th:block>
+</body>
+</html>
