@@ -1,11 +1,21 @@
 package com.scm.scm2_0.Controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.scm.scm2_0.Entities.User;
+import com.scm.scm2_0.Forms.UserForm;
+import com.scm.scm2_0.Services.UserService;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/home")
     public String home(Model model){
@@ -70,8 +80,18 @@ public class PageController {
     }
 
     @RequestMapping("/signup")
-    public String signup(){
+    public String signup(Model model){
         
+        UserForm userForm = new UserForm();
+
+        // userForm.setName("Prabhat");
+        // userForm.setEmail("abs@123");
+        // userForm.setPassword("abc");
+        // userForm.setPhoneNumber("7897815555");
+        // userForm.setAbout("about myself");
+
+        model.addAttribute("userForm", userForm);
+
         System.out.println("Signup page loading");
         return new String("signup");
     }
@@ -81,5 +101,44 @@ public class PageController {
         
         System.out.println("Contact page loading");
         return "contacts";
+    }
+
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processingRegister(@ModelAttribute UserForm userForm){
+
+        System.out.println("Processing Register");
+
+        // fetch the form data
+        System.out.println(userForm);
+
+        // validate the form
+        // TODO::Next video
+
+        // save the data in the database
+        // User user = User.builder()
+        // .name(userForm.getName())
+        // .email(userForm.getEmail())
+        // .password(userForm.getPassword())
+        // .about(userForm.getAbout())
+        // .phoneNumber(userForm.getPhoneNumber())
+        // .profilePic("/Images/defaultProfile.jpg")
+        // .build();
+
+        User user = new User();
+
+        user.setAbout(userForm.getAbout());
+        user.setEmail(userForm.getEmail());
+        user.setName(userForm.getName());
+        user.setPassword(userForm.getPassword());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setProfilePic("/Images/defaultProfile.jpg");
+        
+        User savedUser =  userService.saveUser(user);
+        System.out.println("User Saved:" + savedUser);
+        // messsage = "Registration Successful"
+        // redirect to login page
+
+
+        return "redirect:/signup";
     }
 }

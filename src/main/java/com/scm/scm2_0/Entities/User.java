@@ -7,15 +7,17 @@ import com.scm.scm2_0.Enums.Providers;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity(name = "user")
 @Table(name = "users")
@@ -23,7 +25,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@ToString
 public class User {
     
     @Id
@@ -45,6 +47,7 @@ public class User {
     private boolean phoneVerified;
 
     // SELF, GOOGLE, FACEBOOK, TWITTER, LINKEDIN, GITHUB
+    @Enumerated(value = EnumType.STRING)
     private Providers provider = Providers.SELF;
     private String providerUserId;
 
