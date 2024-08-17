@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scm.scm2_0.Entities.User;
 import com.scm.scm2_0.Forms.UserForm;
+import com.scm.scm2_0.Helper.Message;
+import com.scm.scm2_0.Helper.Enums.MessageType;
 import com.scm.scm2_0.Services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PageController {
@@ -84,11 +88,11 @@ public class PageController {
         
         UserForm userForm = new UserForm();
 
-        // userForm.setName("Prabhat");
-        // userForm.setEmail("abs@123");
-        // userForm.setPassword("abc");
-        // userForm.setPhoneNumber("7897815555");
-        // userForm.setAbout("about myself");
+        userForm.setName("Prabhat");
+        userForm.setEmail("abs@123");
+        userForm.setPassword("abc");
+        userForm.setPhoneNumber("7897815555");
+        userForm.setAbout("about myself");
 
         model.addAttribute("userForm", userForm);
 
@@ -104,7 +108,7 @@ public class PageController {
     }
 
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processingRegister(@ModelAttribute UserForm userForm){
+    public String processingRegister(@ModelAttribute UserForm userForm, HttpSession session){
 
         System.out.println("Processing Register");
 
@@ -135,10 +139,12 @@ public class PageController {
         
         User savedUser =  userService.saveUser(user);
         System.out.println("User Saved:" + savedUser);
+
         // messsage = "Registration Successful"
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+        session.setAttribute("message", message);
+
         // redirect to login page
-
-
         return "redirect:/signup";
     }
 }

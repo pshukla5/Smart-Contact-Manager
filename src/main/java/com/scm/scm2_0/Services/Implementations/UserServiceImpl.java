@@ -3,10 +3,8 @@ package com.scm.scm2_0.Services.Implementations;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Supplier;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +19,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepo userRepo;
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    // private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public User saveUser(User user) {
