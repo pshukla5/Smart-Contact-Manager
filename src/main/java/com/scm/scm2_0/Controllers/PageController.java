@@ -3,6 +3,7 @@ package com.scm.scm2_0.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import com.scm.scm2_0.Helper.Enums.MessageType;
 import com.scm.scm2_0.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class PageController {
@@ -88,11 +90,11 @@ public class PageController {
         
         UserForm userForm = new UserForm();
 
-        userForm.setName("Prabhat");
-        userForm.setEmail("abs@123");
-        userForm.setPassword("abc");
-        userForm.setPhoneNumber("7897815555");
-        userForm.setAbout("about myself");
+        // userForm.setName("Prabhat");
+        // userForm.setEmail("abs@123");
+        // userForm.setPassword("abc");
+        // userForm.setPhoneNumber("7897815555");
+        // userForm.setAbout("about myself");
 
         model.addAttribute("userForm", userForm);
 
@@ -108,7 +110,7 @@ public class PageController {
     }
 
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processingRegister(@ModelAttribute UserForm userForm, HttpSession session){
+    public String processingRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult, HttpSession session){
 
         System.out.println("Processing Register");
 
@@ -117,6 +119,11 @@ public class PageController {
 
         // validate the form
         // TODO::Next video
+        if(rBindingResult.hasErrors()){
+
+            System.out.println("Error:" + rBindingResult.getErrorCount());
+            return "redirect:/signup";
+        }
 
         // save the data in the database
         // User user = User.builder()
