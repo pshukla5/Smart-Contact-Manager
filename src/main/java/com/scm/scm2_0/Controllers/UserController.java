@@ -15,6 +15,12 @@ public class UserController {
         return "user/dashboard";
     }
 
+    // @RequestMapping(value = "/dashboard", method=RequestMethod.POST)
+    // public String userDashboardpost() {
+
+    //     return "user/dashboard";
+    // }
+
     // User Profile page
     @RequestMapping(value = "/profile", method=RequestMethod.GET)
     public String userProfile() {

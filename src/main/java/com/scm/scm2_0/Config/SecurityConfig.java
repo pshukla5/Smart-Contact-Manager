@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.security.config.Customizer;
 
 import com.scm.scm2_0.Services.Implementations.SecurityCustomUserDetailsService;
@@ -76,7 +81,29 @@ public class SecurityConfig{
 
         // form default login
         // agar hme kuch change krna hoga to yha aayenge -> form login se related
-        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.formLogin(formLogin -> {
+
+            formLogin.loginPage("/login");
+            formLogin.loginProcessingUrl("/authenticate");
+            // formLogin.successForwardUrl("/user/dashboard");
+            formLogin.failureForwardUrl("/login?error=true");
+            // formLogin.defaultSuccessUrl("/user/profile");
+            formLogin.defaultSuccessUrl("/user/dashboard");
+            formLogin.usernameParameter("email");
+            formLogin.passwordParameter("password");
+            // formLogin.failureHandler(null);
+            // formLogin.successHandler(null);
+
+
+
+        });
+
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.logout(logoutForm->{
+
+            logoutForm.logoutRequestMatcher(AntPathRequestMatcher.antMatcher("/**/logout**"));
+            logoutForm.logoutSuccessUrl("/login?logout=true");
+        });
 
 
         return httpSecurity.build();
