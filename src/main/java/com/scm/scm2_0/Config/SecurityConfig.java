@@ -1,16 +1,22 @@
 package com.scm.scm2_0.Config;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.Customizer;
 
 import com.scm.scm2_0.Services.Implementations.SecurityCustomUserDetailsService;
 
@@ -35,6 +41,8 @@ public class SecurityConfig{
     //     return new InMemoryUserDetailsManager(user1,user2);
     // }
 
+    // Configuration of Authentication provider
+
     @Autowired
     private SecurityCustomUserDetailsService securityCustomUserDetailsService;
 
@@ -50,6 +58,28 @@ public class SecurityConfig{
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return daoAuthenticationProvider;
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+
+
+        // configuration
+        // URLs ko configure kiya hai kon se public rhenge aur koun se private rhenge
+        httpSecurity.authorizeHttpRequests(authorize -> {
+
+            // authorize.requestMatchers("/home","/signup","/services").permitAll();
+            authorize.requestMatchers("/user/**").authenticated();
+            authorize.anyRequest().permitAll();
+
+        });
+
+        // form default login
+        // agar hme kuch change krna hoga to yha aayenge -> form login se related
+        httpSecurity.formLogin(Customizer.withDefaults());
+
+
+        return httpSecurity.build();
     }
 
     @Bean

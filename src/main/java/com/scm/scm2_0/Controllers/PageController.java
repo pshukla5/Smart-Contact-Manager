@@ -16,12 +16,21 @@ import com.scm.scm2_0.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class PageController {
 
     @Autowired
     UserService userService;
+    
+    @GetMapping("/")
+    public String index(){
+
+        return "redirect:/home";
+    }
 
     @RequestMapping("/home")
     public String home(Model model){
@@ -90,11 +99,11 @@ public class PageController {
         
         UserForm userForm = new UserForm();
 
-        // userForm.setName("Prabhat");
-        // userForm.setEmail("abs@123");
-        // userForm.setPassword("abc");
-        // userForm.setPhoneNumber("7897815555");
-        // userForm.setAbout("about myself");
+        userForm.setName("user");
+        userForm.setEmail("user@abc.com");
+        userForm.setPassword("user");
+        userForm.setPhoneNumber("6746553456");
+        userForm.setAbout("this is testing");
 
         model.addAttribute("userForm", userForm);
 
@@ -122,7 +131,7 @@ public class PageController {
         if(rBindingResult.hasErrors()){
 
             System.out.println("Error:" + rBindingResult.getErrorCount());
-            return "redirect:/signup";
+            return "signup";
         }
 
         // save the data in the database
