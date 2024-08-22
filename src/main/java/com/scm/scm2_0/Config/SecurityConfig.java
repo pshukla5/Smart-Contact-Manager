@@ -1,6 +1,8 @@
 package com.scm.scm2_0.Config;
 
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +27,10 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.security.config.Customizer;
 
 import com.scm.scm2_0.Services.Implementations.SecurityCustomUserDetailsService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig{
@@ -43,13 +50,19 @@ public class SecurityConfig{
     //                         .roles("ADMIN")
     //                         .build();
 
-    //     return new InMemoryUserDetailsManager(user1,user2);
+        // return new InMemoryUserDetailsManager(user1,user2);
     // }
 
     // Configuration of Authentication provider
 
     @Autowired
     private SecurityCustomUserDetailsService securityCustomUserDetailsService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    OAuthAuthenticationSuccessHandler oAuthAuthenticationSuccessHandler;
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
@@ -60,7 +73,7 @@ public class SecurityConfig{
         daoAuthenticationProvider.setUserDetailsService(securityCustomUserDetailsService);
         
         // Password encoder ka object
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
 
         return daoAuthenticationProvider;
     }
@@ -106,12 +119,13 @@ public class SecurityConfig{
         });
 
 
+        httpSecurity.oauth2Login(oAuth ->{
+
+            oAuth.loginPage("/login");
+            oAuth.successHandler(oAuthAuthenticationSuccessHandler);
+        });
+
+
         return httpSecurity.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-
-        return new BCryptPasswordEncoder();
     }
 }
