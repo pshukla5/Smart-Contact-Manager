@@ -12,4 +12,5 @@ import com.scm.scm2_0.Entities.User;
 public interface UserRepo extends JpaRepository<User,String>{
 
     Optional<User> findByEmail(String email);
+
 }
