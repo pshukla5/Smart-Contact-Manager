@@ -101,7 +101,7 @@ public class SecurityConfig{
             // formLogin.successForwardUrl("/user/dashboard");
             formLogin.failureForwardUrl("/login?error=true");
             // formLogin.defaultSuccessUrl("/user/profile");
-            formLogin.defaultSuccessUrl("/user/dashboard");
+            formLogin.defaultSuccessUrl("/user/profile");
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
             // formLogin.failureHandler(null);

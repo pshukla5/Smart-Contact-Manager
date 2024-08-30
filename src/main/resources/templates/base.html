@@ -16,7 +16,25 @@
 </head>
 <body class="dark:bg-gray-900 dark:text-white bg-gray-300">
     <!-- Common Header -->
-    <div th:replace="~{navbar::navbar}"></div>
+    <div data-th-unless="${loggedInUser}">
+
+        <div th:replace="~{navbar::navbar}"></div>
+
+    </div>
+
+    <div data-th-if="${loggedInUser}">
+
+        <div data-th-replace="~{user/user_navbar::user-navbar}"></div>
+
+    </div>
+
+    <!-- Side Bar if user is loggged in-->
+
+    <div data-th-if="${loggedInUser}">
+
+        <div data-th-replace="~{user/sidebar::sidebar}"></div>
+
+    </div>
 
     <!-- Main Content -->
     <div class="p-4">

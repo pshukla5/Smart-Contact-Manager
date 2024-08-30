@@ -2,26 +2,18 @@ package com.scm.scm2_0.Controllers;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.scm.scm2_0.Helper.Helper;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+
     // User Dashboard page
     @RequestMapping(value = "/dashboard", method=RequestMethod.GET)
-    public String userDashboard(Authentication authentication) {
-
-
-        System.out.println("call /user/dashboard");
-        String email = Helper.getEmailofLoggedInUser(authentication);
-
-
-        System.out.println(email);
-
+    public String userDashboard(Model model, Authentication authentication) {        
 
 
         return "user/dashboard";

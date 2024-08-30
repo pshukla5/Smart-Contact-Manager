@@ -16,6 +16,8 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    User findUserByEmail(String email);
+
     // add more methods related to user service
 
 }
