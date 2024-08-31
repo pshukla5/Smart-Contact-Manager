@@ -1,6 +1,8 @@
 package com.scm.scm2_0.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,7 @@ import com.scm.scm2_0.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,6 +28,8 @@ public class PageController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    Environment environment;
     
     @GetMapping("/")
     public String index(){
@@ -89,8 +94,12 @@ public class PageController {
     
     @RequestMapping("/login")
     public String login(){
-        
+
         System.out.println("Login page loading");
+        // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.google.client-id"));
+        // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.google.client-secret"));
+        // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-id"));
+        // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-secret"));
         return "login";
     }
 

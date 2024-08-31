@@ -15,7 +15,7 @@ public class UserController {
     @RequestMapping(value = "/dashboard", method=RequestMethod.GET)
     public String userDashboard(Model model, Authentication authentication) {        
 
-
+        
         return "user/dashboard";
     }
 
