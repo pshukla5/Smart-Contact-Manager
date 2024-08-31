@@ -46,7 +46,7 @@ public class PageController {
         model.addAttribute("name", "Substring Technologies");
         model.addAttribute("YouTubeChannel", "LCWD");
         model.addAttribute("githubLink", "https://github.com/pshukla5/Group1--Project");
-        return "Home";
+        return "home";
     }
 
     @RequestMapping("/tailwindhome")

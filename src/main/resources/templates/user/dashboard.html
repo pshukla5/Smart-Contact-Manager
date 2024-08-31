@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title data-th-text="${loggedInUser.name} + ' | Dashboard'">Profile Page</title>
 </head>
 <body>
-    <h1>this is user dashboard</h1>
-    <h1 data-th-text="${loggedInUser.name}"></h1>
-    <h1 data-th-text="${loggedInUser.email}"></h1>
+    <div id="content">
+        <div data-th-if="${loggedInUser}">
+            <!-- <div data-th-replace="~{user/side_nav::nav}"></div> -->
+            <div data-th-replace="~{user/side_nav::side}"></div>
+        </div>
+        <div class="pl-64">
+            <div class="flex justify-center flex-col items-center gap-2">
 
-    <!-- Agar user logged in ho to ye div chalani hai -->
+                <h1 class="text-5xl">Welcome to dashboard page</h1>
+                <p>Lorem ipsum dolor sit amet.</p>
+                
+            </div>
+            
 
-    <div data-th-if="${loggedInUser}">
-        <h1>User is logged in</h1>
-        <h1>this is logged in section</h1>
+        </div>
     </div>
-
-    <a href="@{'/logout'}">Logout</a>
+    <script>
+        console.log("Dashboard page")
+    </script>
 </body>
 </html>

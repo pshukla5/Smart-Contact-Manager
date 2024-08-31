@@ -35,7 +35,13 @@
     </div> -->
 
     <!-- Main Content -->
-    <div class="p-4 pt-20">
+    <div data-th-if="${loggedInUser}"
+    class="p-4 pt-20">
+        <section th:replace="${content}"></section>
+    </div>
+
+    <div data-th-unless="${loggedInUser}"
+    class="p-4">
         <section th:replace="${content}"></section>
     </div>
     <!-- Common Footer -->
