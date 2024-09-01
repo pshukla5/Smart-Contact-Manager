@@ -20,6 +20,9 @@
                     <!-- add contact card -->
                     <div id="add_contact_card" class="block mb-4 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
 
+                        <!-- Alert Message Here -->
+                        <div data-th-replace="~{message::messagebox}"></div>
+                        
                         <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Add New Contact</h5>
                         <p class="font-normal text-gray-700 dark:text-gray-400">Save your contacts to cloud....</p>
 
@@ -30,54 +33,91 @@
                         data-th-object="${contactForm}">
 
                             <!-- Name -->
-                            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <div class="relative mb-2">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                    <i class="fa-solid fa-user h-4 w-4"></i>
+                             <div class="mb-2">
+                                <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <i class="fa-solid fa-user h-4 w-4"></i>
+                                    </div>
+                                    <input 
+                                    data-th-field="*{name}"
+                                    type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Jack Reacher">
                                 </div>
-                                <input 
-                                data-th-field="*{name}"
-                                type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Jack Reacher">
+                                <p
+                                    data-th-if="${#fields.hasErrors('name')}"
+                                    data-th-errors="*{name}"
+                                    class="pl-4 text-red-500">
+
+                                </p>
                             </div>
 
                             <!-- Email -->
-                            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <div class="relative mb-2">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                    <i class="fa-solid fa-envelope h-4 w-4"></i>
+                            <div class="mb-2">
+                                <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <i class="fa-solid fa-envelope h-4 w-4"></i>
+                                    </div>
+                                    <input
+                                    data-th-field="*{email}"
+                                    type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="jack.reacher@gmail.com">
                                 </div>
-                                <input
-                                data-th-field="*{email}"
-                                type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="jack.reacher@gmail.com">
+
+                                <p
+                                    data-th-if="${#fields.hasErrors('email')}"
+                                    data-th-errors="*{email}"
+                                    class="pl-4 text-red-500">
+                                    
+                                </p>
                             </div>
 
                             <!-- Phone -->
-                            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Number</label>
-                            <div class="relative mb-2">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                    <i class="fa-solid fa-phone h-4 w-4"></i>
+                            <div class="mb-2">
+                                <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Number</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <i class="fa-solid fa-phone h-4 w-4"></i>
+                                    </div>
+                                    <input
+                                    data-th-field="*{phoneNumber}"
+                                    type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="9873598359">
                                 </div>
-                                <input
-                                data-th-field="*{phoneNumber}"
-                                type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="9873598359">
+
+                                <p
+                                    data-th-if="${#fields.hasErrors('phoneNumber')}"
+                                    data-th-errors="*{phoneNumber}"
+                                    class="pl-4 text-red-500">
+                                    
+                                </p>
                             </div>
 
                             <!-- Address -->
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                            <textarea
-                            data-th-field="*{address}"
-                            id="message" rows="4" class="mb-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Address here please......."></textarea>
+                            <div class="mb-2">
+                                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                <textarea
+                                data-th-field="*{address}"
+                                id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Address here please......."></textarea>
+
+                                <p
+                                    data-th-if="${#fields.hasErrors('address')}"
+                                    data-th-errors="*{address}"
+                                    class="pl-4 text-red-500">
+                                    
+                                </p>
+                            </div>
 
                             <!-- Description -->
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <textarea
-                            data-th-field="*{description}"
-                            id="message" rows="4" class="mb-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Write something about the contact......."></textarea>
+                            <div class="mb-2">
+                                <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                <textarea
+                                data-th-field="*{description}"
+                                id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Write something about the contact......."></textarea>
+                            </div>
                             
                             <!-- Social Links -->
                             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Social Links</label>

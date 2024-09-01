@@ -5,13 +5,19 @@ import com.scm.scm2_0.Entities.Contact;
 import com.scm.scm2_0.Entities.User;
 import com.scm.scm2_0.Forms.ContactForm;
 import com.scm.scm2_0.Helper.Helper;
+import com.scm.scm2_0.Helper.Message;
+import com.scm.scm2_0.Helper.Enums.MessageType;
 import com.scm.scm2_0.Services.ContactService;
 import com.scm.scm2_0.Services.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +35,7 @@ public class ContactController {
     UserService userService;
 
     // User add contact page
-    @RequestMapping(path = "/add")
+    @RequestMapping(path = "/add", method = RequestMethod.GET)
     public String addContact(Model model) {
 
         ContactForm contactForm = new ContactForm();
@@ -51,10 +57,26 @@ public class ContactController {
     }
 
     @RequestMapping(path = "/add", method=RequestMethod.POST)
-    public String requestMethodName(@ModelAttribute ContactForm contactForm, Authentication authentication) {
+    public String addContact(@Valid @ModelAttribute ContactForm contactForm,BindingResult result,
+                                Authentication authentication, HttpSession session
+                            ) {
 
         System.out.println("Reading Contact form");
         System.out.println(contactForm);
+
+        // Validate Form
+        // TODO: Add validation logic here
+
+        if(result.hasErrors()){
+
+            session.setAttribute("message", Message.builder()
+                                                   .content("Please correct the following errors")
+                                                   .type(MessageType.red)
+                                                   .build());
+            System.out.println("returning to add contact page due to errors");
+            return "user/addContact";
+        }
+
 
         String username = Helper.getEmailofLoggedInUser(authentication);
 
@@ -73,10 +95,19 @@ public class ContactController {
         contact.setPhoneNumber(contactForm.getPhoneNumber());
         contact.setFavorite(contactForm.getFavorite());
         contact.setUser(user);
+
+        // Process the contact picture
         contact.setPicture(null);
 
         // saving contact
         contactService.save(contact);
+
+        // Set the message to be displayed on view
+        Message message = new Message();
+        message.setContent("Added Contact Successfully");
+        message.setType(MessageType.green);
+
+        session.setAttribute("message", message);
 
 
         return new String("redirect:/user/contacts/add");
