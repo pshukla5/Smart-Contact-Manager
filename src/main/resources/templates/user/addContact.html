@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <title>Add Contact</title>
+</head>
+<body>
+    <div id="content">
+        <div data-th-if="${loggedInUser}">
+            <!-- <div data-th-replace="~{user/side_nav::nav}"></div> -->
+            <div data-th-replace="~{user/side_nav::side}"></div>
+        </div>
+        <div class="sm:pl-64">
+            
+            <div class="grid grid-cols-12">
+
+                <div class="col-span-1"></div>
+
+                <div class="col-span-10">
+                    
+                    <!-- add contact card -->
+                    <div id="add_contact_card" class="block mb-4 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+                        <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Add New Contact</h5>
+                        <p class="font-normal text-gray-700 dark:text-gray-400">Save your contacts to cloud....</p>
+
+                        <form
+                        class="p-2">
+
+                            <!-- Name -->
+                            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <div class="relative mb-2">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <i class="fa-solid fa-user h-4 w-4"></i>
+                                </div>
+                                <input type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Jack Reacher">
+                            </div>
+
+                            <!-- Email -->
+                            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                            <div class="relative mb-2">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <i class="fa-solid fa-envelope h-4 w-4"></i>
+                                </div>
+                                <input type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="jack.reacher@gmail.com">
+                            </div>
+
+                            <!-- Phone -->
+                            <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact Number</label>
+                            <div class="relative mb-2">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <i class="fa-solid fa-phone h-4 w-4"></i>
+                                </div>
+                                <input type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="9873598359">
+                            </div>
+
+                            <!-- Address -->
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                            <textarea id="message" rows="4" class="mb-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Address here please......."></textarea>
+
+                            <!-- Address -->
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                            <textarea id="message" rows="4" class="mb-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Write something about the contact......."></textarea>
+                            
+                            <!-- Social Links -->
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Social Links</label>
+                            <div class="flex justify-center space-x-2 mb-2">
+                                
+                                <!-- Website link -->
+                                <div class="relative mb-2 w-1/2">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <i class="fa-solid fa-earth-americas h-4 w-4"></i>
+                                    </div>
+                                    <input type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Website Link">
+                                </div>
+
+                                <!-- LinkedIn Link -->
+                                <div class="relative mb-2 w-1/2">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <i class="fa-brands fa-linkedin h-4 w-4"></i>
+                                    </div>
+                                    <input type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="LinkedIn Profile">
+                                </div>
+                            </div>
+
+                            <!-- Contact Image -->
+                            <div class="mb-2">
+
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Contact Image</label>
+                                <input class="block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
+
+                            </div>
+
+                            <!-- Is Favotite -->
+                            <div class="flex items-center mb-2">
+                                <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is this your favorite contact</label>
+                            </div>
+
+                            <!-- Submit and Reset Button -->
+
+                            <div class="flex justify-center space-x-3">
+
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Save Contact
+                                </button>
+    
+                                <button type="reset" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Reset
+                                </button>
+    
+                            </div>
+
+
+
+                        </form>
+                    </div>
+    
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log("Dashboard page")
+    </script>
+</body>
+</html>
