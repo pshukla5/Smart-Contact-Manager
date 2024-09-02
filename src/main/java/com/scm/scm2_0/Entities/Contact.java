@@ -3,6 +3,9 @@ package com.scm.scm2_0.Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "contacts")
@@ -22,6 +26,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Contact {
 
     @Id
@@ -38,9 +43,13 @@ public class Contact {
     private String linkedInLink;
     // private List<String> socialLinks = new ArrayList<>();
 
+    private String cloudinaryImagePublicId;
+
     @ManyToOne
+    @ToString.Exclude
     private User user;
 
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     private List<SocialLink> socialLinks = new ArrayList<>();
 }

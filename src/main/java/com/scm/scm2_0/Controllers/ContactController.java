@@ -8,11 +8,16 @@ import com.scm.scm2_0.Helper.Helper;
 import com.scm.scm2_0.Helper.Message;
 import com.scm.scm2_0.Helper.Enums.MessageType;
 import com.scm.scm2_0.Services.ContactService;
+import com.scm.scm2_0.Services.ImageService;
 import com.scm.scm2_0.Services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -28,11 +33,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/user/contacts")
 public class ContactController {
 
-    @Autowired
-    ContactService contactService;
+    private Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
-    UserService userService;
+    ImageService imageService;
+
+    @Autowired
+    private ContactService contactService;
+
+    @Autowired
+    private UserService userService;
 
     // User add contact page
     @RequestMapping(path = "/add", method = RequestMethod.GET)
@@ -40,14 +50,14 @@ public class ContactController {
 
         ContactForm contactForm = new ContactForm();
 
-        // contactForm.setName("Prabhat");
-        // contactForm.setAddress("Noida");
-        // contactForm.setDescription("This is testing");
-        // contactForm.setEmail("pk@gmail.com");
-        // contactForm.setLinkedInLink("linked.com");
-        // contactForm.setWebsiteLink("scm.com");
-        // contactForm.setPhoneNumber("9873483244");
-        // contactForm.setFavorite(true);
+        contactForm.setName("Prabhat");
+        contactForm.setAddress("Noida");
+        contactForm.setDescription("This is testing");
+        contactForm.setEmail("pk@gmail.com");
+        contactForm.setLinkedInLink("linked.com");
+        contactForm.setWebsiteLink("scm.com");
+        contactForm.setPhoneNumber("9873483244");
+        contactForm.setFavorite(true);
 
         model.addAttribute("contactForm", contactForm);
 
@@ -73,6 +83,12 @@ public class ContactController {
                                                    .content("Please correct the following errors")
                                                    .type(MessageType.red)
                                                    .build());
+
+            result.getAllErrors().forEach(error->{
+
+                System.out.println(error.toString());
+            });
+
             System.out.println("returning to add contact page due to errors");
             return "user/addContact";
         }
@@ -97,7 +113,12 @@ public class ContactController {
         contact.setUser(user);
 
         // Process the contact picture
-        contact.setPicture(null);
+        // image upload krne ka code
+        String cloudinaryImagePublicId = UUID.randomUUID().toString();
+        String fileURL = imageService.uploadImage(contactForm.getContactImage(), cloudinaryImagePublicId);
+
+        contact.setPicture(fileURL);
+        contact.setCloudinaryImagePublicId(cloudinaryImagePublicId);
 
         // saving contact
         contactService.save(contact);

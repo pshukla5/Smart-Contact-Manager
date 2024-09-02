@@ -108,9 +108,9 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
 
             User savedUser = user1==null ? userRepo.save(user) : user;
 
-            logger.info("{} -> {}",savedUser);
+            // logger.info("{} -> {}",savedUser);
 
-
+// ---------------------------------------------------------------------------------------------------------------------
             // DefaultOAuth2User user= (DefaultOAuth2User) authentication.getPrincipal();
 
             // // System.out.println(authentication.getPrincipal());

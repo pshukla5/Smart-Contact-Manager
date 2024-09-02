@@ -22,7 +22,7 @@
 
                         <!-- Alert Message Here -->
                         <div data-th-replace="~{message::messagebox}"></div>
-                        
+
                         <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Add New Contact</h5>
                         <p class="font-normal text-gray-700 dark:text-gray-400">Save your contacts to cloud....</p>
 
@@ -30,7 +30,8 @@
                         class="p-2"
                         data-th-action="@{'/user/contacts/add'}"
                         method="post"
-                        data-th-object="${contactForm}">
+                        data-th-object="${contactForm}"
+                        enctype="multipart/form-data">
 
                             <!-- Name -->
                              <div class="mb-2">
@@ -150,7 +151,9 @@
                             <div class="mb-2">
 
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size">Contact Image</label>
-                                <input class="block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="small_size" type="file">
+                                <input 
+                                data-th-field="*{contactImage}"
+                                class="block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file">
 
                             </div>
 
