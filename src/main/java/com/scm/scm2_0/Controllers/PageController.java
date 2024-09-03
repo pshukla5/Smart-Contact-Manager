@@ -16,6 +16,7 @@ import com.scm.scm2_0.Helper.Message;
 import com.scm.scm2_0.Helper.Enums.MessageType;
 import com.scm.scm2_0.Services.UserService;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -91,15 +92,38 @@ public class PageController {
         System.out.println("Services page loading");
         return "services";
     }
+
+    // @RequestMapping("/login")
+    // public String login(){
+    
+    //     System.out.println("Login page loading");
+    //     // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.google.client-id"));
+    //     // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.google.client-secret"));
+    //     // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-id"));
+    //     // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-secret"));
+    //     return "login";
+    // }
     
     @RequestMapping("/login")
-    public String login(){
-
+    public String login(HttpSession session, @Nullable @RequestParam String logout){
+    
         System.out.println("Login page loading");
+        System.out.println(logout);
         // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.google.client-id"));
         // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.google.client-secret"));
         // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-id"));
         // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-secret"));
+
+        if(logout != null){
+            System.out.println("Logged out");
+
+            session.setAttribute("message", Message.builder()
+                                                    .content("You have been logged out.")
+                                                    .type(MessageType.green)
+                                                    .build()
+                                );
+
+        }
         return "login";
     }
 
