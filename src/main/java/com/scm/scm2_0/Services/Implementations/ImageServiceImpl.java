@@ -51,13 +51,13 @@ public class ImageServiceImpl implements ImageService{
 
         return cloudinary
                 .url()
-                .transformation(
+                // .transformation(
 
-                    new Transformation<>()
-                        .width(AppConstants.CONTACT_IMAGE_WIDTH)
-                        .height(AppConstants.CONTACT_IMAGE_HEIGHT)
-                        .crop(AppConstants.CONTACT_IMAGE_CROP)
-                )
+                //     new Transformation<>()
+                //         .width(AppConstants.CONTACT_IMAGE_WIDTH)
+                //         .height(AppConstants.CONTACT_IMAGE_HEIGHT)
+                //         .crop(AppConstants.CONTACT_IMAGE_CROP)
+                // )
                 .generate(cloudinaryImagePublicId);
     }
 
