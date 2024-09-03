@@ -105,7 +105,7 @@ public class PageController {
     // }
     
     @RequestMapping("/login")
-    public String login(HttpSession session, @Nullable @RequestParam String logout){
+    public String login(HttpSession session, @Nullable @RequestParam Boolean logout){
     
         System.out.println("Login page loading");
         System.out.println(logout);
@@ -114,7 +114,7 @@ public class PageController {
         // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-id"));
         // System.out.println(environment.getProperty("spring.security.oauth2.client.registration.github.client-secret"));
 
-        if(logout != null){
+        if(logout != null && logout == true){
             System.out.println("Logged out");
 
             session.setAttribute("message", Message.builder()
@@ -123,6 +123,7 @@ public class PageController {
                                                     .build()
                                 );
 
+            return "redirect:/login";
         }
         return "login";
     }
