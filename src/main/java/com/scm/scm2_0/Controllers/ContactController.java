@@ -14,6 +14,7 @@ import com.scm.scm2_0.Services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @Controller
@@ -114,11 +116,15 @@ public class ContactController {
 
         // Process the contact picture
         // image upload krne ka code
-        String cloudinaryImagePublicId = UUID.randomUUID().toString();
-        String fileURL = imageService.uploadImage(contactForm.getContactImage(), cloudinaryImagePublicId);
 
-        contact.setPicture(fileURL);
-        contact.setCloudinaryImagePublicId(cloudinaryImagePublicId);
+        if(!contactForm.getContactImage().isEmpty()){
+
+            String cloudinaryImagePublicId = UUID.randomUUID().toString();
+            String fileURL = imageService.uploadImage(contactForm.getContactImage(), cloudinaryImagePublicId);
+
+            contact.setPicture(fileURL);
+            contact.setCloudinaryImagePublicId(cloudinaryImagePublicId);
+        }
 
         // saving contact
         contactService.save(contact);
@@ -135,6 +141,21 @@ public class ContactController {
     }
     
     // User view contact page
+
+    @RequestMapping(method=RequestMethod.GET)
+    public String getAllContactByUser(Model model, Authentication authentication) {
+
+        // String username = Helper.getEmailofLoggedInUser(authentication);
+
+        User user = (User) model.getAttribute("loggedInUser");
+
+        List<Contact> contacts = user.getContacts();
+
+        model.addAttribute("contacts", contacts);
+
+        return new String("user/viewContact");
+    }
+    
 
     // user edit contact page
 

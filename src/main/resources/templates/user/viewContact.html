@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <title>All Contacts</title>
+</head>
+<body>
+    <div id="content">
+        <div data-th-if="${loggedInUser}">
+            <!-- <div data-th-replace="~{user/side_nav::nav}"></div> -->
+            <div data-th-replace="~{user/side_nav::side}"></div>
+        </div>
+        <div class="sm:pl-64">
+            <div data-th-replace="~{user/contact_fragments/allContacts::contactList}">  </div>
+        </div>
+    </div>
+    <script>
+        console.log("All Contacts")
+    </script>
+</body>
+</html>
