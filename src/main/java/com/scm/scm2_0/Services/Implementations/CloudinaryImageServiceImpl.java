@@ -13,11 +13,11 @@ import com.scm.scm2_0.Helper.AppConstants;
 import com.scm.scm2_0.Services.ImageService;
 
 @Service
-public class ImageServiceImpl implements ImageService{
+public class CloudinaryImageServiceImpl implements ImageService{
 
     private Cloudinary cloudinary;
 
-    public ImageServiceImpl(Cloudinary cloudinary) {
+    public CloudinaryImageServiceImpl(Cloudinary cloudinary) {
         this.cloudinary = cloudinary;
     }
 

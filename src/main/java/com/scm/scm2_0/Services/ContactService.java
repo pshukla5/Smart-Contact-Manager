@@ -2,9 +2,12 @@ package com.scm.scm2_0.Services;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.scm.scm2_0.Entities.Contact;
+import com.scm.scm2_0.Entities.User;
 
 @Service
 public interface ContactService {
@@ -29,5 +32,7 @@ public interface ContactService {
 
     // get contacts by User ID
     List<Contact> getByUserId(String id);
+
+    Page<Contact> getByUser(User user, int page, String sortBy, String direction);
 
 }

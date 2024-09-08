@@ -49,7 +49,7 @@ class="relative overflow-x-auto shadow-md sm:rounded-lg">
         </thead>
         <tbody>
             <tr
-            data-th-each="c: ${contacts}"
+            data-th-each="c: ${pageContacts.getContent()}"
             data-th-object="${c}"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
@@ -131,4 +131,7 @@ class="relative overflow-x-auto shadow-md sm:rounded-lg">
             </tr>
         </tbody>
     </table>
+    <div class="p-5 text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <div data-th-replace="~{user/contact_fragments/pagination::pagination}">  </div>
+    </div>
 </div>

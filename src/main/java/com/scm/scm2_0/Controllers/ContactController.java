@@ -20,6 +20,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -143,17 +144,27 @@ public class ContactController {
     // User view contact page
 
     @RequestMapping(method=RequestMethod.GET)
-    public String getAllContactByUser(Model model, Authentication authentication) {
+    public String getAllContactByUser(
+        @RequestParam(value="page", defaultValue="0") int page,
+        @RequestParam(value="sortBy", defaultValue="name") String sortBy,
+        @RequestParam(value="direction", defaultValue="asc") String direction,
+        Model model, Authentication authentication) {
 
         // String username = Helper.getEmailofLoggedInUser(authentication);
 
         User user = (User) model.getAttribute("loggedInUser");
 
-        List<Contact> contacts = user.getContacts();
+        // List<Contact> contacts = user.getContacts();
 
-        model.addAttribute("contacts", contacts);
+        // model.addAttribute("contacts", contacts);
 
-        return new String("user/viewContact");
+        Page<Contact> pageContacts = contactService.getByUser(user, page, sortBy, direction);
+
+        model.addAttribute("pageContacts", pageContacts);   
+
+        System.out.println(pageContacts.getNumber());
+
+        return new String("/user/contacts");
     }
     
 
