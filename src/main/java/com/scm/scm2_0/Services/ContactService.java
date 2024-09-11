@@ -2,7 +2,6 @@ package com.scm.scm2_0.Services;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +17,22 @@ public interface ContactService {
     // Update Contact
     Contact update(Contact contact);
 
-    // get contacts
-    List<Contact> getAll();
-
     // get contact by ID
     Contact getById(String id);
 
     // delete contact
     void delete(String id);
 
-    // search contact
-    List<Contact> search(String name, String email, String phoneNumber);
-
     // get contacts by User ID
     List<Contact> getByUserId(String id);
 
-    Page<Contact> getByUser(User user, int page, String sortBy, String direction);
+    // get all contacts of a user
+    Page<Contact> getByUser(User user, int pageNo, int size, String sortBy, String direction);
+
+    // search contact
+    Page<Contact> findByUserAndEmailContaining(User user, String emailKeyword, int pageNo, int size, String sortBy, String direction);
+    Page<Contact> findByUserAndNameContaining(User user, String nameKeyword, int pageNo, int size, String sortBy, String direction);
+    Page<Contact> findByUserAndPhoneNumberContaining(User user, String phoneKeyword, int pageNo, int size, String sortBy, String direction);
+
 
 }

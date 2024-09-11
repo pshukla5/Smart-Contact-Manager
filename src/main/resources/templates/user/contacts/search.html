@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base::parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <title>Search Contacts</title>
+</head>
+<body>
+    <div id="content">
+        <div data-th-if="${loggedInUser}">
+            <!-- <div data-th-replace="~{user/side_nav::nav}"></div> -->
+            <div data-th-replace="~{user/side_nav::side}"></div>
+        </div>
+
+        <div class="pl-64">
+
+            <div data-th-replace="~{user/search_fragments/searchedContacts::searchedContacts}">
+                
+            </div>
+    </div>
+    <script>
+        console.log("Searched Contacts")
+    </script>
+</body>
+</html>

@@ -4,6 +4,8 @@ package com.scm.scm2_0.Controllers;
 import com.scm.scm2_0.Entities.Contact;
 import com.scm.scm2_0.Entities.User;
 import com.scm.scm2_0.Forms.ContactForm;
+import com.scm.scm2_0.Forms.SearchForm;
+import com.scm.scm2_0.Helper.AppConstants;
 import com.scm.scm2_0.Helper.Helper;
 import com.scm.scm2_0.Helper.Message;
 import com.scm.scm2_0.Helper.Enums.MessageType;
@@ -148,6 +150,7 @@ public class ContactController {
         @RequestParam(value="page", defaultValue="0") int page,
         @RequestParam(value="sortBy", defaultValue="name") String sortBy,
         @RequestParam(value="direction", defaultValue="asc") String direction,
+        @RequestParam(value="size", defaultValue= AppConstants.PAGE_SIZE + "") int size,
         Model model, Authentication authentication) {
 
         // String username = Helper.getEmailofLoggedInUser(authentication);
@@ -158,20 +161,65 @@ public class ContactController {
 
         // model.addAttribute("contacts", contacts);
 
-        Page<Contact> pageContacts = contactService.getByUser(user, page, sortBy, direction);
+        Page<Contact> pageContacts = contactService.getByUser(user, page, size, sortBy, direction);
 
-        model.addAttribute("pageContacts", pageContacts);   
+        model.addAttribute("pageContacts", pageContacts);
+        
+        model.addAttribute("searchForm", SearchForm.builder().build());
 
         System.out.println(pageContacts.getNumber());
 
-        return new String("/user/contacts");
+        return new String("user/contacts");
+    }
+    
+    // user search contact page
+
+    @RequestMapping(path="/search", method=RequestMethod.GET)
+    public String search(
+        @ModelAttribute SearchForm searchForm,
+        @RequestParam String field,
+        @RequestParam String keyword,
+        @RequestParam(value="page", defaultValue="0") int pageNo,
+        @RequestParam(value="sortBy", defaultValue="name") String sortBy,
+        @RequestParam(value="direction", defaultValue="asc") String direction,
+        @RequestParam(value="size", defaultValue= AppConstants.PAGE_SIZE + "") int size,
+        Model model) {
+
+        System.out.println(field);
+        System.out.println(keyword);
+
+        User user = (User) model.getAttribute("loggedInUser");
+
+        Page<Contact> pageContacts = null;
+
+        if(field.equalsIgnoreCase("name")){
+
+            pageContacts = contactService.findByUserAndNameContaining(user, keyword, pageNo, size, sortBy, direction);
+        }
+        else if(field.equalsIgnoreCase("email")){
+
+            pageContacts = contactService.findByUserAndEmailContaining(user, keyword, pageNo, size, sortBy, direction);
+        }
+        else if(field.equalsIgnoreCase("phonenumber")){
+
+            pageContacts = contactService.findByUserAndPhoneNumberContaining(user, keyword, pageNo, size, sortBy, direction);
+        }
+
+        model.addAttribute("pageContacts", pageContacts);
+
+        model.addAttribute("searchForm", searchForm);
+
+        System.out.println(searchForm.getField());
+        System.out.println(searchForm.getKeyword());
+
+        System.out.println(pageContacts.getTotalPages());
+
+        return new String("user/contacts/search");
     }
     
 
     // user edit contact page
 
-    // user edit contact page
 
-    // user search contact page
 
 }

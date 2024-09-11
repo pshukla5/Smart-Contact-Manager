@@ -1,13 +1,12 @@
 <div
-data-th-fragment="contactList"
-class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div
-    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+data-th-fragment="searchedContacts">
 
-        <!-- Search Form -->    
+    <!-- Search Form -->  
+    <div class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">  
         <form data-th-replace="~{user/contact_fragments/searchForm::searchForm}"></form>
     </div>
 
+    <!-- Searched Contacts -->
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -101,8 +100,11 @@ class="relative overflow-x-auto shadow-md sm:rounded-lg">
             </tr>
         </tbody>
     </table>
-    
-    <div class="p-5 text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <div data-th-replace="~{user/contact_fragments/pagination::pagination}">  </div>
+
+    <!-- Pagination -->
+    <div 
+    data-th-if="${pageContacts.getTotalPages()}>1"
+    class="p-5 text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <div data-th-replace="~{user/search_fragments/pagination::pagination}">  </div>
     </div>
 </div>

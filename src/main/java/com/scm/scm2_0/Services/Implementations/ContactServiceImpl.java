@@ -42,12 +42,6 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public List<Contact> getAll() {
-        
-        return contactRepo.findAll();
-    }
-
-    @Override
     public Contact getById(String id) {
         
         return contactRepo.findById(id).orElseThrow(()->{
@@ -68,26 +62,57 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public List<Contact> search(String name, String email, String phoneNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
-    }
-
-    @Override
     public List<Contact> getByUserId(String id) {
         
         return contactRepo.findByUserId(id);
     }
 
     @Override
-    public Page<Contact> getByUser(User user, int page, String sortBy, String direction) {
+    public Page<Contact> getByUser(User user, int pageNo, int size, String sortBy, String direction) {
         
         Sort sort = direction.equals("asc") ?
                     Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
-        Pageable pageable = PageRequest.of(page, AppConstants.PAGE_SIZE, sort);
+        Pageable pageable = PageRequest.of(pageNo, size, sort);
 
         return contactRepo.findByUser(user, pageable);
     }
 
+    @Override
+    public Page<Contact> findByUserAndEmailContaining(User user, String emailKeyword, int pageNo, int size, String sortBy,
+            String direction) {
+        
+        Sort sort = direction.equals("asc") ?
+                Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, size, sort);
+
+
+        // Page
+        return contactRepo.findByUserAndEmailContaining(user, emailKeyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> findByUserAndNameContaining(User user, String nameKeyword, int pageNo, int size, String sortBy,
+            String direction) {
+
+        Sort sort = direction.equals("asc") ?
+            Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, size, sort);
+
+        return contactRepo.findByUserAndNameContaining(user, nameKeyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> findByUserAndPhoneNumberContaining(User user, String phoneKeyword, int pageNo, int size, String sortBy,
+            String direction) {
+                
+        Sort sort = direction.equals("asc") ?
+            Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(pageNo, size, sort);
+
+        return contactRepo.findByUserAndPhoneNumberContaining(user, phoneKeyword, pageable);
+    }
 }
