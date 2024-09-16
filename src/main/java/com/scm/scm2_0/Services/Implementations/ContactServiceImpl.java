@@ -115,4 +115,13 @@ public class ContactServiceImpl implements ContactService{
 
         return contactRepo.findByUserAndPhoneNumberContaining(user, phoneKeyword, pageable);
     }
+
+    @Override
+    public Contact getByUserAndId(User user, String id) {
+
+        return contactRepo.getByUserAndId(user, id).orElseThrow(()->{
+
+            throw new ResourceNotFoundException("Contact Not Found with ID: "+id);
+        });
+    }
 }

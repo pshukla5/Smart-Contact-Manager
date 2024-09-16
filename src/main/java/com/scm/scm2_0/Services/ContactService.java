@@ -1,6 +1,7 @@
 package com.scm.scm2_0.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,6 @@ public interface ContactService {
     Page<Contact> findByUserAndEmailContaining(User user, String emailKeyword, int pageNo, int size, String sortBy, String direction);
     Page<Contact> findByUserAndNameContaining(User user, String nameKeyword, int pageNo, int size, String sortBy, String direction);
     Page<Contact> findByUserAndPhoneNumberContaining(User user, String phoneKeyword, int pageNo, int size, String sortBy, String direction);
-
+    Contact getByUserAndId(User user, String id);
 
 }

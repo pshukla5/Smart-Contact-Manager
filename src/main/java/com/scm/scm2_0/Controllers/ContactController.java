@@ -150,12 +150,13 @@ public class ContactController {
         @RequestParam(value="page", defaultValue="0") int page,
         @RequestParam(value="sortBy", defaultValue="name") String sortBy,
         @RequestParam(value="direction", defaultValue="asc") String direction,
-        @RequestParam(value="size", defaultValue= AppConstants.PAGE_SIZE + "") int size,
+        //@RequestParam(value="size", defaultValue= AppConstants.PAGE_SIZE + "") int size,
         Model model, Authentication authentication) {
 
         // String username = Helper.getEmailofLoggedInUser(authentication);
 
         User user = (User) model.getAttribute("loggedInUser");
+        int size = AppConstants.PAGE_SIZE;
 
         // List<Contact> contacts = user.getContacts();
 
@@ -182,13 +183,14 @@ public class ContactController {
         @RequestParam(value="page", defaultValue="0") int pageNo,
         @RequestParam(value="sortBy", defaultValue="name") String sortBy,
         @RequestParam(value="direction", defaultValue="asc") String direction,
-        @RequestParam(value="size", defaultValue= AppConstants.PAGE_SIZE + "") int size,
+        //@RequestParam(value="size", defaultValue= AppConstants.PAGE_SIZE + "") int size,
         Model model) {
 
         System.out.println(field);
         System.out.println(keyword);
 
         User user = (User) model.getAttribute("loggedInUser");
+        int size = AppConstants.PAGE_SIZE;
 
         Page<Contact> pageContacts = null;
 

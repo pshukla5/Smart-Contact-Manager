@@ -1,6 +1,7 @@
 package com.scm.scm2_0.Repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ public interface ContactRepo extends JpaRepository<Contact, String> {
     Page<Contact> findByUserAndEmailContaining(User user, String emailKeyword, Pageable pageable);
     Page<Contact> findByUserAndNameContaining(User user, String nameKeyword, Pageable pageable);
     Page<Contact> findByUserAndPhoneNumberContaining(User user, String phoneKeyword, Pageable pageable);
+    Optional<Contact> getByUserAndId(User user, String id);
 
     // custom query method
     @Query("SELECT c FROM Contact c WHERE c.user.id = :userId")
