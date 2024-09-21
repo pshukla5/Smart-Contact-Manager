@@ -32,10 +32,8 @@ public class ApiController {
         
         User user = (User) model.getAttribute("loggedInUser");
 
-        Optional<String> name=null;
-
-
         System.out.println(user.getUserId());
+        
         User user1 = User.builder()
                         .userId(user.getUserId())
                         .enabled(user.isEnabled())
@@ -47,7 +45,7 @@ public class ApiController {
         // contact.setAddress("xy");
         contact.setUser(user1);
         // name.ifPresent(contact::setName);
-        ExampleMatcher.MatcherConfigurer<ExampleMatcher.GenericPropertyMatcher> n =null;
+
         ExampleMatcher matcher  = ExampleMatcher.matching()
                                                 .withIgnoreNullValues()
                                                 .withIgnorePaths("favorite")

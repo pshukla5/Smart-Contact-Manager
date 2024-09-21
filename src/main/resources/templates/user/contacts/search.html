@@ -22,6 +22,10 @@
                 <div data-th-replace="~{user/contact_fragments/contactModal::contact}"></div>
             </div>
 
+            <!-- Delete Modal -->
+
+            <div data-th-replace="~{user/contacts/delete::delete_modal}"> </div>
+
         </div>
     </div>
     <script>
@@ -29,5 +33,6 @@
     </script>
     
     <script data-th-src="@{'/JS/contacts.js'}"></script>
+    <script data-th-src="@{'/JS/delete.js'}"></script>
 </body>
 </html>

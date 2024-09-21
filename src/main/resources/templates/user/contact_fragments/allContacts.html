@@ -89,7 +89,7 @@ class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <td class="px-6 py-4">
                     <div class="space-x-2">
                         <!-- Delete -->
-                        <a href=""> <i class="fa-solid fa-trash"></i> </a>
+                        <button data-th-onclick="showDeleteModal([[${c.id}]])"> <i class="fa-solid fa-trash"></i> </button>
 
                         <!-- Edit -->
                         <a href=""> <i class="fa-solid fa-user-pen"></i> </a>
@@ -107,4 +107,5 @@ class="relative overflow-x-auto shadow-md sm:rounded-lg">
     class="p-5 text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <div data-th-replace="~{user/contact_fragments/pagination::pagination}">  </div>
     </div>
+
 </div>

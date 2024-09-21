@@ -88,7 +88,7 @@ data-th-fragment="searchedContacts">
                 <td class="px-6 py-4">
                     <div class="space-x-2">
                         <!-- Delete -->
-                        <a href=""> <i class="fa-solid fa-trash"></i> </a>
+                        <button data-th-onclick="showDeleteModal([[${c.id}]])"> <i class="fa-solid fa-trash"></i> </button>
 
                         <!-- Edit -->
                         <a href=""> <i class="fa-solid fa-user-pen"></i> </a>

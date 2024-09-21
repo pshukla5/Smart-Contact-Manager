@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,8 +60,8 @@ public class ContactController {
         contactForm.setAddress("Noida");
         contactForm.setDescription("This is testing");
         contactForm.setEmail("pk@gmail.com");
-        contactForm.setLinkedInLink("linked.com");
-        contactForm.setWebsiteLink("scm.com");
+        contactForm.setLinkedInLink("https://in.linkedin.com/");
+        contactForm.setWebsiteLink("https://www.google.com/");
         contactForm.setPhoneNumber("9873483244");
         contactForm.setFavorite(true);
 
@@ -216,8 +217,23 @@ public class ContactController {
 
         System.out.println(pageContacts.getTotalPages());
 
-        return new String("user/contacB567T87Y79ts/search");
+        return new String("user/contacts/search");
     }
+
+    // delete contact
+    @RequestMapping(path = "/delete/{contactID}", method=RequestMethod.GET)
+    public String deleteContact(@PathVariable(value = "contactID") String contactID,
+                                Model model
+                                ) {
+
+        System.out.println("Deleting contact with id: " + contactID);
+        User user = (User)model.getAttribute("loggedInUser");
+        
+        contactService.deleteByUserAndId(user, contactID);
+        
+        return new String("redirect:/user/contacts");
+    }
+    
     
 
     // user edit contact page

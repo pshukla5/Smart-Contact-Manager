@@ -17,6 +17,8 @@ import com.scm.scm2_0.Helper.AppConstants;
 import com.scm.scm2_0.Repositories.ContactRepo;
 import com.scm.scm2_0.Services.ContactService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ContactServiceImpl implements ContactService{
 
@@ -123,5 +125,12 @@ public class ContactServiceImpl implements ContactService{
 
             throw new ResourceNotFoundException("Contact Not Found with ID: "+id);
         });
+    }
+
+    @Override
+    @Transactional
+    public void deleteByUserAndId(User user, String contactId) {
+        
+        contactRepo.deleteByUserAndId(user, contactId);
     }
 }

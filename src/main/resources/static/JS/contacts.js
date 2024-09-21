@@ -5,7 +5,7 @@ var contactModal = document.getElementById("view_contact_modal");
 console.log(contactModal);
 
 // options with default values
-const options = {
+const contactsOptions = {
     placement: 'bottom-right',
     backdrop: 'dynamic',
     backdropClasses:
@@ -23,12 +23,12 @@ const options = {
 };
 
 // instance options object
-const instanceOptions = {
+const contactInstanceOptions = {
   id: 'view_contact_modal',
   override: true
 };
 
-var contact = new Modal(contactModal, options, instanceOptions);
+var contact = new Modal(contactModal, contactsOptions, contactsOptions);
 
 function showContact(c){
 
