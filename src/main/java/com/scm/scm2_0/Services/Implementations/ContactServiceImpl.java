@@ -37,8 +37,15 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public Contact update(Contact contact) {
+    public Contact update(User user, String contactId, Contact updatedContact) {
 
+        Contact oldContact = contactRepo.getByUserAndId(user, contactId)
+                                        .orElseThrow(
+                                            ()-> new ResourceNotFoundException()
+                                        );
+
+        oldContact.setAddress(updatedContact.getAddress());
+        
         return null;
 
     }

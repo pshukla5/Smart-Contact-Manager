@@ -16,7 +16,6 @@ import com.scm.scm2_0.Services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -32,7 +31,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 
 @Controller
@@ -223,20 +221,27 @@ public class ContactController {
     // delete contact
     @RequestMapping(path = "/delete/{contactID}", method=RequestMethod.GET)
     public String deleteContact(@PathVariable(value = "contactID") String contactID,
-                                Model model
+                                Model model,
+                                HttpSession session
                                 ) {
 
         System.out.println("Deleting contact with id: " + contactID);
         User user = (User)model.getAttribute("loggedInUser");
         
         contactService.deleteByUserAndId(user, contactID);
+
+        Message message = Message.builder()
+                                    .content("Contact Deleted Successfully")
+                                    .type(MessageType.red)
+                                    .build();
+        session.setAttribute("message", message);
         
         return new String("redirect:/user/contacts");
     }
     
     
 
-    // user edit contact page
+    // update contact
 
 
 

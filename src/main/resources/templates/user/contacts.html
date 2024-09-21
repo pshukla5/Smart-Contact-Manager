@@ -12,6 +12,9 @@
         </div>
         <div class="sm:pl-64">
 
+            <!-- Alert Message Here -->
+            <div data-th-replace="~{message::messagebox}"></div>
+
             <!-- All Contacts -->
             <div data-th-replace="~{user/contact_fragments/allContacts::contactList}">
             </div>
@@ -22,7 +25,6 @@
             </div>
 
             <!-- Delete Modal -->
-
             <div data-th-replace="~{user/contacts/delete::delete_modal}"> </div>
 
         </div>
