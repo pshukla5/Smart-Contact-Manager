@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService{
     public Optional<User> updateUser(User user){
 
         User user2 =  userRepo.findById(user.getUserId()).orElseThrow(()->{
-            return new ResourceNotFoundException("User not found");
+            throw new ResourceNotFoundException("User not found");
         });
 
         // Updating user2
@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService{
         user2.setPhoneNumber(user.getPhoneNumber());
         user2.setProfilePic(user.getProfilePic());
         user2.setEnabled(user.isEnabled());
-        user2.setEmailVerified(user.isEmailVerified());
-        user2.setPhoneVerified(user.isPhoneVerified());
+        user2.setEmailVerified(user.getEmailVerified());
+        user2.setPhoneVerified(user.getPhoneVerified());
         user2.setProvider(user.getProvider());
         user2.setProviderUserId(user.getProviderUserId());
 

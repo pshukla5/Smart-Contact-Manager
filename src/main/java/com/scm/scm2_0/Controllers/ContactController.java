@@ -216,7 +216,7 @@ public class ContactController {
 
         System.out.println(pageContacts.getTotalPages());
 
-        return new String("user/contacts/search");
+        return new String("user/contacB567T87Y79ts/search");
     }
     
 

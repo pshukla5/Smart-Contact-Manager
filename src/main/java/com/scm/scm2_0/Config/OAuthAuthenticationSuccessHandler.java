@@ -68,7 +68,6 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
             user.setUserId(UUID.randomUUID().toString());
             user.setRoleList(List.of(AppConstants.ROLE_USER));
             user.setEmailVerified(true);
-            user.setEnabled(false);
             user.setPassword(passwordEncoder.encode("abc"));
             user.setEnabled(true);
 

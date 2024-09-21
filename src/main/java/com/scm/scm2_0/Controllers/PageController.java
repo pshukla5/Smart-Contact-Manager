@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scm.scm2_0.Entities.User;
+import com.scm.scm2_0.Enums.Providers;
 import com.scm.scm2_0.Forms.UserForm;
 import com.scm.scm2_0.Helper.Message;
 import com.scm.scm2_0.Helper.Enums.MessageType;
@@ -186,6 +187,7 @@ public class PageController {
         user.setPassword(userForm.getPassword());
         user.setPhoneNumber(userForm.getPhoneNumber());
         user.setProfilePic("/Images/defaultProfile.jpg");
+        user.setProvider(Providers.SELF);
         
         User savedUser =  userService.saveUser(user);
         System.out.println("User Saved:" + savedUser);

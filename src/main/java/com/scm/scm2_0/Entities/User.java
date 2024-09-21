@@ -25,6 +25,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class User implements UserDetails {
     
     @Id
@@ -55,13 +57,13 @@ public class User implements UserDetails {
 
     // Information
     @Getter(value = AccessLevel.NONE)
-    private boolean enabled;
-    private boolean emailVerified;
-    private boolean phoneVerified;
+    private Boolean enabled;
+    private Boolean emailVerified;
+    private Boolean phoneVerified;
 
     // SELF, GOOGLE, FACEBOOK, TWITTER, LINKEDIN, GITHUB
     @Enumerated(value = EnumType.STRING)
-    private Providers provider = Providers.SELF;
+    private Providers provider;
     private String providerUserId;
 
     // Add more fields if needed
