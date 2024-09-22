@@ -324,7 +324,7 @@ public class ContactController {
             String cloudinaryImagePublicId = UUID.randomUUID().toString();
             String imageUrl = imageService.uploadImage(contactForm.getContactImage(), cloudinaryImagePublicId);
 
-            if(!contact.getCloudinaryImagePublicId().isEmpty()){
+            if(contact.getCloudinaryImagePublicId() != null && !contact.getCloudinaryImagePublicId().isEmpty()){
 
                 imageService.deleteUsingPublicId(contact.getCloudinaryImagePublicId());
             }
@@ -335,6 +335,12 @@ public class ContactController {
         }
 
         contactService.update(contact);
+
+        Message message = Message.builder()
+                                    .content("Contact Updated Successfully")
+                                    .type(MessageType.green)
+                                    .build();
+        session.setAttribute("message", message);
 
 
         return "redirect:/user/contacts";
