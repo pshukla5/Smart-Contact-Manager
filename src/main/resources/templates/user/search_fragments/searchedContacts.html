@@ -91,7 +91,7 @@ data-th-fragment="searchedContacts">
                         <button data-th-onclick="showDeleteModal([[${c.id}]])"> <i class="fa-solid fa-trash"></i> </button>
 
                         <!-- Edit -->
-                        <a href=""> <i class="fa-solid fa-user-pen"></i> </a>
+                        <a data-th-href="@{'/user/contacts/update/' + ${c.id}}"> <i class="fa-solid fa-user-pen"></i> </a>
 
                         <!-- View -->
                         <button data-th-onclick="showContact([[${c}]])"> <i class="fa-solid fa-eye"></i> </button>

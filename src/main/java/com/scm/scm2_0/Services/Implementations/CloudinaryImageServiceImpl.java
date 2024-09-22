@@ -61,4 +61,19 @@ public class CloudinaryImageServiceImpl implements ImageService{
                 .generate(cloudinaryImagePublicId);
     }
 
+
+
+    @Override
+    public void deleteUsingPublicId(String cloudinaryImagePublicId) {
+
+        try {
+            
+            cloudinary.uploader().destroy(cloudinaryImagePublicId, ObjectUtils.emptyMap());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+
 }

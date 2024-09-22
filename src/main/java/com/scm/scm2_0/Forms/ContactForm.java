@@ -37,5 +37,7 @@ public class ContactForm {
     private Boolean favorite;
     private String websiteLink;
     private String linkedInLink;
+    private String picture;
+    @ToString.Exclude
     private MultipartFile contactImage;
 }

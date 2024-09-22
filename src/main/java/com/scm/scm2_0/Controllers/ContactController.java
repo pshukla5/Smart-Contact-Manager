@@ -16,6 +16,7 @@ import com.scm.scm2_0.Services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -26,11 +27,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @Controller
@@ -40,7 +45,7 @@ public class ContactController {
     private Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
-    ImageService imageService;
+    private ImageService imageService;
 
     @Autowired
     private ContactService contactService;
@@ -242,7 +247,98 @@ public class ContactController {
     
 
     // update contact
+    @GetMapping("/update/{contactId}")
+    public String updateContact(@PathVariable String contactId,
+                                Model model
+    ) {
 
 
+        User user = (User) model.getAttribute("loggedInUser");
+        Contact contact = contactService.getByUserAndId(user, contactId);
+
+        ContactForm contactForm = new ContactForm();
+
+        System.out.println("creating contact form");
+
+        contactForm.setName(contact.getName());
+        contactForm.setEmail(contact.getEmail());
+        contactForm.setPhoneNumber(contact.getPhoneNumber());
+        contactForm.setAddress(contact.getAddress());
+        contactForm.setDescription(contact.getDescription());
+        contactForm.setFavorite(contact.isFavorite());
+        contactForm.setWebsiteLink(contact.getWebsiteLink());
+        contactForm.setLinkedInLink(contact.getLinkedInLink());
+        contactForm.setPicture(contact.getPicture());
+
+        model.addAttribute("contactForm", contactForm);
+        model.addAttribute("contactId",contactId);
+        
+
+        return new String("/user/contacts/update");
+    }
+    
+
+    @RequestMapping(path="/update/{contactId}", method=RequestMethod.POST)
+    public String updateContact(@PathVariable String contactId,
+                                @Valid @ModelAttribute ContactForm contactForm,
+                                BindingResult result,
+                                Model model,
+                                HttpSession session
+    ) {
+
+        List<FieldError> errors = result.getFieldErrors();
+        System.out.println("-------------------------------------------------------");
+
+        errors.forEach(i->{
+
+            System.out.println(i.getDefaultMessage());
+        });
+
+        if(result.hasErrors()){
+
+            System.out.println("has errors");
+            System.out.println(contactId);
+            model.addAttribute("contactForm", contactForm);
+            System.out.println(contactForm);
+            return new String("user/contacts/update");
+        }
+
+        User user = (User) model.getAttribute("loggedInUser");
+
+        Contact contact = contactService.getByUserAndId(user, contactId);
+
+        contact.setId(contactId);
+        contact.setEmail(contactForm.getEmail());
+        contact.setName(contactForm.getName());
+        contact.setPhoneNumber(contactForm.getPhoneNumber());
+        contact.setAddress(contactForm.getAddress());
+        contact.setDescription(contactForm.getDescription());
+        contact.setFavorite(contactForm.getFavorite());
+        contact.setWebsiteLink(contactForm.getWebsiteLink());
+        contact.setLinkedInLink(contactForm.getLinkedInLink());
+
+        if(contactForm.getContactImage() != null && !contactForm.getContactImage().isEmpty()){
+
+            System.out.println("Image updated");
+
+            String cloudinaryImagePublicId = UUID.randomUUID().toString();
+            String imageUrl = imageService.uploadImage(contactForm.getContactImage(), cloudinaryImagePublicId);
+
+            if(!contact.getCloudinaryImagePublicId().isEmpty()){
+
+                imageService.deleteUsingPublicId(contact.getCloudinaryImagePublicId());
+            }
+
+            contact.setPicture(imageUrl);
+            contact.setCloudinaryImagePublicId(cloudinaryImagePublicId);
+            
+        }
+
+        contactService.update(contact);
+
+
+        return "redirect:/user/contacts";
+
+    }
 
 }
